@@ -1,17 +1,121 @@
 return {
   {
     'nvim-treesitter/nvim-treesitter',
-    dependencies = { 'HiPhish/nvim-ts-rainbow2', 'theHamsta/nvim-treesitter-pairs', 'windwp/nvim-ts-autotag',
-      'nvim-treesitter/nvim-treesitter-context', 'nvim-treesitter/nvim-treesitter-context',
-      'mfussenegger/nvim-treehopper', 'mfussenegger/nvim-treehopper' },
+    dependencies = {
+      'theHamsta/nvim-treesitter-pairs',
+      'windwp/nvim-ts-autotag',
+      'nvim-treesitter/nvim-treesitter-context',
+      'mfussenegger/nvim-treehopper',
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      {
+        "andymass/vim-matchup",
+        init = function() vim.g.matchup_matchparen_deferred = 1 end,
+      },
+      {
+        "HiPhish/nvim-ts-rainbow2",
+        config = function()
+          vim.api.nvim_create_autocmd({ "BufWritePost", "FocusGained" }, {
+            callback = function()
+              vim.cmd.TSDisable "rainbow"
+              vim.cmd.TSEnable "rainbow"
+            end,
+          })
+        end,
+      },
+    },
     opts = {
+      auto_install = vim.fn.executable "tree-sitter" == 1,
+      highlight = { enable = true, disable = { "help" } },
+      rainbow = { enable = true },
+      textobjects = {
+        select = {
+          enable = true,
+          lookahead = true,
+          keymaps = {
+            aA = "@attribute.outer",
+            iA = "@attribute.inner",
+            aB = "@block.outer",
+            iB = "@block.inner",
+            aD = "@conditional.outer",
+            iD = "@conditional.inner",
+            aF = "@function.outer",
+            iF = "@function.inner",
+            aL = "@loop.outer",
+            iL = "@loop.inner",
+            aP = "@parameter.outer",
+            iP = "@parameter.inner",
+            aR = "@regex.outer",
+            iR = "@regex.inner",
+            aX = "@class.outer",
+            iX = "@class.inner",
+            aS = "@statement.outer",
+            iS = "@statement.outer",
+            aN = "@number.inner",
+            iN = "@number.inner",
+            aC = "@comment.outer",
+            iC = "@comment.outer",
+          },
+        },
+        move = {
+          enable = true,
+          set_jumps = true,
+          goto_next_start = {
+            ["]b"] = { query = "@block.outer", desc = "Next block start" },
+            ["]f"] = { query = "@function.outer", desc = "Next function start" },
+            ["]p"] = { query = "@parameter.outer", desc = "Next parameter start" },
+            ["]x"] = { query = "@class.outer", desc = "Next class start" },
+            ["]c"] = { query = "@comment.outer", desc = "Next comment start" },
+          },
+          goto_next_end = {
+            ["]B"] = { query = "@block.outer", desc = "Next block end" },
+            ["]F"] = { query = "@function.outer", desc = "Next function end" },
+            ["]P"] = { query = "@parameter.outer", desc = "Next parameter end" },
+            ["]X"] = { query = "@class.outer", desc = "Next class end" },
+            ["]C"] = { query = "@comment.outer", desc = "Next comment end" },
+          },
+          goto_previous_start = {
+            ["[b"] = { query = "@block.outer", desc = "Previous block start" },
+            ["[f"] = { query = "@function.outer", desc = "Previous function start" },
+            ["[p"] = { query = "@parameter.outer", desc = "Previous parameter start" },
+            ["[x"] = { query = "@class.outer", desc = "Previous class start" },
+            ["[c"] = { query = "@comment.outer", desc = "Previous comment start" },
+          },
+          goto_previous_end = {
+            ["[B"] = { query = "@block.outer", desc = "Previous block end" },
+            ["[F"] = { query = "@function.outer", desc = "Previous function end" },
+            ["[P"] = { query = "@parameter.outer", desc = "Previous parameter end" },
+            ["[X"] = { query = "@class.outer", desc = "Previous class end" },
+            ["[C"] = { query = "@comment.outer", desc = "Previous comment end" },
+          },
+        },
+        swap = {
+          enable = true,
+          swap_next = {
+            [">B"] = { query = "@block.outer", desc = "Swap next block" },
+            [">F"] = { query = "@function.outer", desc = "Swap next function" },
+            [">P"] = { query = "@parameter.inner", desc = "Swap next parameter" },
+          },
+          swap_previous = {
+            ["<B"] = { query = "@block.outer", desc = "Swap previous block" },
+            ["<F"] = { query = "@function.outer", desc = "Swap previous function" },
+            ["<P"] = { query = "@parameter.inner", desc = "Swap previous parameter" },
+          },
+        },
+        lsp_interop = {
+          enable = true,
+          border = "single",
+          peek_definition_code = {
+            ["<leader>lp"] = { query = "@function.outer", desc = "Peek function definition" },
+            ["<leader>lP"] = { query = "@class.outer", desc = "Peek class definition" },
+          },
+        },
+      },
       autotag = {
         enable = true,
       },
       context_commentstring = {
         enable = true
       },
-      auto_install = true,
       ensure_installed = { 'astro', 'awk', 'bash', 'bicep', 'c', 'c_sharp', 'clojure', 'cmake', 'comment', 'cpp', 'css',
         'd', 'dart', 'diff', 'dockerfile', 'dot', 'elixir', 'elm', 'erlang', 'fortran', 'fish', 'gdscript', 'gitcommit',
         'gitignore', 'gleam', 'glimmer', 'go', 'gomod', 'graphql', 'hare', 'html', 'htmldjango',
@@ -21,9 +125,6 @@ return {
         'squirrel', 'starlark', 'supercollider', 'surface', 'svelte', 'swift', 'teal', 'terraform', 'thrift', 'tiger',
         'toml', 'tsx', 'turtle', 'twig', 'typescript', 'v', 'vala', 'vim', 'vimdoc', 'vue', 'wgsl',
         'wgsl_bevy', 'yaml', 'yuck', 'zig'
-      },
-      highlight = {
-        enable = true,
       },
       incremental_selection = {
         enable = true,
@@ -59,14 +160,6 @@ return {
           longest_partner = false,    -- whether to delete the longest or the shortest pair when multiple found.
           -- E.g. whether to delete the angle bracket or whole tag in  <pair> </pair>
         },
-      },
-      rainbow = {
-        enable = true,
-        -- list of languages you want to disable the plugin for
-        disable = { 'jsx', 'cpp' },
-        -- Which query to use for finding delimiters
-        query = 'rainbow-parens',
-        -- Highlight the entire buffer all at once
       },
       sync_install = false,
     },
