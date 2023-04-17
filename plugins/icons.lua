@@ -1,0 +1,52 @@
+return {
+  "onsails/lspkind.nvim",
+  opts = function(_, opts)
+    -- use codicons preset
+    opts.preset = "codicons"
+    -- set some missing symbol types
+    opts.symbol_map = {
+      Array = "",
+      Boolean = "",
+      Key = "",
+      Namespace = "",
+      Null = "",
+      Number = "",
+      Object = "",
+      Package = "",
+      String = "",
+      MacroRecording = "",
+      ActiveLSP = "",
+      ActiveTS = "綠",
+      BufferClose = "",
+      NeovimClose = "",
+      DefaultFile = "",
+      Diagnostic = "裂",
+      DiagnosticError = "",
+      DiagnosticHint = "",
+      DiagnosticInfo = "",
+      DiagnosticWarn = "",
+      Ellipsis = "…",
+      FileModified = "",
+      FileReadOnly = "",
+      FolderClosed = "",
+      FolderEmpty = "",
+      FolderOpen = "",
+      Git = "",
+      GitAdd = "",
+      GitBranch = "",
+      GitChange = "",
+      GitConflict = "",
+      GitDelete = "",
+      GitIgnored = "◌",
+      GitRenamed = "➜",
+      GitStaged = "✓",
+      GitUnstaged = "✗",
+      GitUntracked = "★",
+      LSPLoaded = "",
+      LSPLoading1 = "",
+      LSPLoading2 = "",
+      LSPLoading3 = "",
+    }
+    return opts
+  end,
+}
