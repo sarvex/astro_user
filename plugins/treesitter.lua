@@ -12,17 +12,15 @@ return {
         enable = true
       },
       auto_install = true,
-      ensure_installed = { 'astro', 'awk', 'bash', 'bicep', 'c', 'c_harp', 'clojure', 'cmake', 'comment', 'cpp', 'css',
+      ensure_installed = { 'astro', 'awk', 'bash', 'bicep', 'c', 'c_sharp', 'clojure', 'cmake', 'comment', 'cpp', 'css',
         'd', 'dart', 'diff', 'dockerfile', 'dot', 'elixir', 'elm', 'erlang', 'fortran', 'fish', 'gdscript', 'gitcommit',
-        'gitignore', 'gleam', 'glimmer', 'go', 'gdresource', 'gomod', 'graphql', 'hare', 'html', 'htmldjango', 'http',
-        'ini', 'java', 'javascript', 'jsdoc', 'json', 'json5', 'jsonc', 'julia', 'kotlin', 'llvm', 'lua', 'luadoc',
-        'luap',
-        'make', 'markdown', 'nix', 'org', 'perl', 'php', 'phpdoc', 'poe-filter', 'prisma', 'pug', 'python', 'querry',
-        'r',
-        'racket', 'regex', 'rst', 'ruby', 'rust', 'scss', 'slint', 'solidity', 'sparql', 'sql', 'squirrel', 'starlart',
-        'supercollider', 'surface', 'svelte', 'swift', 'teal', 'terraform', 'thrift', 'tiger', 'tome', 'tsx', 'turtle',
-        'twig', 'typescript', 'ungrammer', 'v', 'vala', 'vim', 'vimdoc', 'vue', 'wgsl', 'wgsl_bevy', 'yaml', 'yuck',
-        'zig'
+        'gitignore', 'gleam', 'glimmer', 'go', 'gomod', 'graphql', 'hare', 'html', 'htmldjango',
+        'http', 'ini', 'java', 'javascript', 'jsdoc', 'json', 'json5', 'jsonc', 'julia', 'kotlin', 'llvm', 'lua',
+        'luadoc', 'luap', 'make', 'markdown', 'nix', 'org', 'perl', 'php', 'phpdoc', 'prisma', 'pug',
+        'python', 'query', 'r', 'racket', 'regex', 'rst', 'ruby', 'rust', 'scss', 'slint', 'solidity', 'sparql', 'sql',
+        'squirrel', 'starlark', 'supercollider', 'surface', 'svelte', 'swift', 'teal', 'terraform', 'thrift', 'tiger',
+        'toml', 'tsx', 'turtle', 'twig', 'typescript', 'v', 'vala', 'vim', 'vimdoc', 'vue', 'wgsl',
+        'wgsl_bevy', 'yaml', 'yuck', 'zig'
       },
       highlight = {
         enable = true,
@@ -40,7 +38,7 @@ return {
         enable = true
       },
       matchup = {
-        enable = true,         -- mandatory, false will disable the whole extension
+        enable = true, -- mandatory, false will disable the whole extension
         -- disable = { 'c', 'ruby' }, -- optional, list of language that will be disabled
         -- [options]
       },
@@ -50,7 +48,7 @@ return {
         highlight_pair_events = {},                                   -- e.g. {'CursorMoved'}, -- when to highlight the pairs, use {} to deactivate highlighting
         highlight_self = false,                                       -- whether to highlight also the part of the pair under cursor (or only the partner)
         goto_right_end = false,                                       -- whether to go to the end of the right partner or the beginning
-        fallback_cmd_normal = 'call matchit#Match_wrapper('',1,'n')', -- What command to issue when we can't find a pair (e.g. 'normal! %')
+        fallback_cmd_normal = "call matchit#Match_wrapper('',1,'n')", -- What command to issue when we can't find a pair (e.g. 'normal! %')
         keymaps = {
           goto_partner = '<leader>%',
           delete_balanced = 'X',
@@ -69,7 +67,6 @@ return {
         -- Which query to use for finding delimiters
         query = 'rainbow-parens',
         -- Highlight the entire buffer all at once
-        strategy = require('ts-rainbow').strategy.global,
       },
       sync_install = false,
     },
@@ -145,7 +142,7 @@ return {
           },
           goto_previous = {
             ['[d'] = '@conditional.outer',
-          }
+          },
         },
         select = {
           enable = true,
@@ -217,8 +214,8 @@ return {
           goto_node = '<cr>',
           show_help = '?',
         },
-      }
-    }
+      },
+    },
   },
   {
     'nvim-treesitter/nvim-treesitter-context',
@@ -253,6 +250,6 @@ return {
       vim.keymap.set('n', 'gnh', '<cmd>STSSwapOrHold<cr>', opts),
       -- Same for visual
       vim.keymap.set('x', 'gnh', '<cmd>STSSwapOrHoldVisual<cr>', opts),
-    }
-  }
+    },
+  },
 }
