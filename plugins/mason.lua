@@ -5,18 +5,18 @@ return {
     'williamboman/mason-lspconfig.nvim',
     -- overrides `require('mason-lspconfig').setup(...)`
     opts = {
-      ensure_installed = { 'lua_ls', 'angular-language-server', 'astro-language-server',
-        'azure-pipelines-language-server', 'bash-language-server', 'bicep-lsp', 'bzl', 'clangd', 'cmake-language-server',
-        'codeql', 'crystalline', 'csharp-language-server', 'deno', 'docker-compose-language-server',
-        'elixir-ls', 'elm-language-server', 'emmet-ls', 'erlang-ls', 'eslint-lsp', 'gopls', 'gradle-language-server',
-        'grammarly-language-server', 'graphql-language-server-cli', 'haxe-language-server', 'helm-ls', 'html-lsp',
-        'java-language-server', 'json-lsp', 'julia-lsp', 'kotlin-language-server', 'luau-lsp', 'marksman', 'millet',
-        'move-analyzer', 'neocmakelsp', 'nimlsp', 'opencl-language-server', 'phpactor', 'powershell-editor-services',
-        'prisma-language-server', 'purescript-language-server', 'r-languageserver', 'reason-language-server',
-        'remark-language-server', 'rust-analyzer', 'slint-lsp', 'solang', 'solang-llvm', 'sloargraph', 'sorbet',
-        'sourcery', 'spectral-language-server', 'stylelint-lsp', 'svelte-language-server', 'tailwindcss-language-server',
-        'teal-language-server', 'terraform-ls', 'typescript-language-server', 'vala-language-server',
-        'vim-language-server', 'vue-language-server', 'wgsl-analyzer', 'yaml-language-server', 'yls-yara', 'zls',
+      ensure_installed = { 'awk_ls', 'angularls', 'arduino_language_server', 'asm_lsp', 'astro', 'azure_pipelines_ls',
+        'bashls', 'bicep', 'bright_script', 'clangd', 'csharp_ls', 'cmake', 'neocmake', 'cssls', 'unocss', 'clarity_lsp',
+        'clojure_lsp', 'codeqlls', 'crystalline', 'dagger', 'denols', 'dhall_lsp_server', 'diagosticcls', 'serve_d',
+        'dockerls', 'docker_compose_language_service', 'dotls', 'droops_lsp', 'efm', 'eslint', 'elixirls', 'elmls',
+        'ember', 'emmet_ls', 'erg_language_server', 'erlangls', 'fsautocomplete', 'fennel_language_server', 'flux-lsp',
+        'fortls', 'glint', 'gopls', 'gradle_ls', 'grammarly', 'html', 'hls', 'haxe_language_server', 'helm-ls',
+        'hoon_ls', 'jsonls', 'jdtls', 'tsserver', 'julials', 'kotlin_language_server', 'lua_ls', 'luau_lsp', 'marksman',
+        'remark_ls', 'move_analyzer', 'nickel_ls', 'nimls', 'rnix', 'ocamllsp', 'spectral', 'opencl_ls', 'openscad_ls',
+        'psalm', 'perlnavigator', 'powershell_es', 'prismals', 'puppet', 'purescriptls', 'pyright', 'pylsp',
+        'r_language_server', 'rescriptls', 'reason_ls', 'robotframework_ls', 'rome', 'solargraph', 'rust_analyzer',
+        'sqls', 'salt_ls', 'slint_lsp', 'smithy_ls', 'solang', 'stylelint_lsp', 'svelte', 'taplo', 'tailwindcss',
+        'teal_ls', 'terraformls', 'vls', 'vala_ls', 'veryl_ls', 'vimls', 'volar', 'wgsl_analzer', 'yamlls', 'zls',
         'ansible-lint', 'bslint', 'cmakelint', 'codespell', 'commitlint', 'cpplint', 'cspell', 'curlylint',
         'editorconfig-checker', 'gitlint', 'glint', 'golangci-lint', 'gospel', 'hadolint', 'haml-lint', 'jsonlint',
         'ktlint', 'luacheck', 'misspell', 'mypy', 'phpcs', 'phpmd', 'proselint', 'pylana', 'pylint', 'pyre',
@@ -30,12 +30,14 @@ return {
     'jay-babu/mason-null-ls.nvim',
     -- overrides `require('mason-null-ls').setup(...)`
     opts = {
+      automatic_installation = true,
       handlers = {
         -- for prettier
         prettier = function()
           require("null-ls").register(require("null-ls").builtins.formatting.prettier.with {
             condition = function(utils)
               return utils.root_has_file "package.json"
+                  or utils.root_has_file ".prettier.config.js"
                   or utils.root_has_file ".prettierrc"
                   or utils.root_has_file ".prettierrc.json"
                   or utils.root_has_file ".prettierrc.js"
@@ -47,6 +49,7 @@ return {
           require("null-ls").register(require("null-ls").builtins.formatting.prettierd.with {
             condition = function(utils)
               return utils.root_has_file "package.json"
+                  or utils.root_has_file ".prettier.config.js"
                   or utils.root_has_file ".prettierrc"
                   or utils.root_has_file ".prettierrc.json"
                   or utils.root_has_file ".prettierrc.js"
